@@ -1,0 +1,59 @@
+﻿@model BeanScene.Areas.Admin.Models.ServiceModels.Create
+@using BeanScene.Data
+
+@{
+    ViewData["Title"] = "Create New Service";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    <link href="~/lib/jqueryui/jquery-ui.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <h3>Create New Service</h3>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label"></label>
+                    <input asp-for="Date" class="form-control" id="datepicker" type="text" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sitting" class="control-label">Sittings Available</label>
+                    <select asp-for="Sitting" class="form-control">
+                        <option value=""> -- Please select a sitting -- </option>
+                    </select>
+                    <span asp-validation-for="Sitting" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="State" class="control-label"></label>
+                    <select asp-for="State" class="form-control">
+                        <option value="">-- Select Service State --</option>
+                        @foreach (ServiceState state in Enum.GetValues(typeof(ServiceState)))
+                        {
+                            <option value="@state.ToString()">@state.ToString()</option>
+                        }
+                    </select>
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <p> </p>
+                    <input type="submit" value="Create" class="btn btn-success" /> |
+                    <a asp-action="Manage" class="btn btn-primary">Back to List</a>
+                    <p> </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+    <script src="~/js/service.js"></script>
+}

@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Admin Home";
+}
+
+@section Head {
+    <link href="~/lib/jqueryui/jquery-ui.css" rel="stylesheet" />
+    <link href="~/css/allocate.css" rel="stylesheet" />
+    <link href="~/css/dashboard.css" rel="stylesheet" />
+}
+
+    <div class="text-center">
+        <h1 class="display-4">Dashboard</h1>
+        @if (Model.ServiceOnDate == true)
+        {
+            <div id="time-line"></div>
+            <input id="dateForFetchAPI" type="hidden" value="@Model.Service.Date.ToShortDateString()" />
+            <div class="bdr">
+                <table id="timeTable" class="table table-hover table-bordered text-center timeline timeline-expanded">
+                    <!-- auto generated table -->
+                </table>
+            </div>
+        }
+        else
+        {
+            <h3>There are no services for today.</h3>
+        }
+    </div>
+
+
+@section Scripts {
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+    <script src="~/lib/moment.js/moment.min.js"></script>
+
+    <script src="~/js/allocation/fetch.js"></script>
+    <script src="~/js/dashboard/page-init.js"></script>
+    <script src="~/js/allocation/helper-functions.js"></script>
+
+    <script src="~/js/dashboard/timetable-init.js"></script>
+    <script src="~/js/dashboard/timetable-buttons.js"></script>
+    <script src="~/js/dashboard/head-generation.js"></script>
+    <script src="~/js/dashboard/body-generation.js"></script>
+
+    <script src="~/js/dashboard/time-line.js"></script>
+}

@@ -1,0 +1,18 @@
+﻿.time-cell-past {
+    background-color: #bfdfff !important;
+}
+
+.time-cell-now {
+    background-color: #ffbfbf !important;
+}
+
+.time-cell-empty {
+    opacity: 0.5 !important;
+}
+
+#time-line {
+    position: absolute;
+    width: 0px;
+    border: 2px solid red;
+    z-index: -5000;
+}

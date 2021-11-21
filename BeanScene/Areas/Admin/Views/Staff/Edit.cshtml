@@ -1,0 +1,68 @@
+﻿@model BeanScene.Areas.Admin.Models.Staff.Edit
+
+@{
+    ViewData["Title"] = "Create New Staff";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h3>Update Staff Account</h3>
+
+    <hr />
+
+    <div>
+        <a class="btn btn-primary" asp-action="Manage">Back to List</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mb-1">
+                    <label asp-for="UserName" class="control-label mx-2 mt-3"></label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-1">
+                    <label asp-for="Email" class="control-label mx-2 mt-3"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-5">
+                    <label asp-for="Phone" class="control-label mx-2 mt-3"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <h4>Update Password</h4>
+                <div class="form-group mb-1">
+                    <label class="form-label mx-2 mt-3" asp-for="OldPassword"></label>
+                    <input asp-for="OldPassword" class="form-control" />
+                    <span asp-validation-for="OldPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-1">
+                    <label class="form-label mx-2 mt-3" asp-for="NewPassword"></label>
+                    <input asp-for="NewPassword" class="form-control" placeholder="10 char min, alphanumeric, 1 non-alphanumeric min, 1 uppercase & lowercase min" />
+                    <span asp-validation-for="NewPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-1">
+                    <label class="form-label mx-2 mt-3" asp-for="ConfirmNewPassword"></label>
+                    <input asp-for="ConfirmNewPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmNewPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-1">
+                    <input type="checkbox" class="mx-2 mt-3" asp-for="IsManager" />
+                    <label asp-for="IsManager" class="control-label"></label>
+                </div>
+                <div class="form-group">
+                    <p> </p>
+                    <input type="submit" value="Update" class="btn btn-success" />
+                    <p> </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,63 @@
+﻿@page
+@model BeanScene.Pages.ConfirmationModel
+@{
+}
+
+@{
+    ViewData["Title"] = "Bookings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    <link href="~/lib/jqueryui/jquery-ui.css" rel="stylesheet" />
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+                    <h1 class="row section-heading text-center mb-3">
+                        <span id="bookingId" class="section-heading-upper">Your booking number is: @Model.Booking.Id.ToString("D5")</span>
+                        <span class="section-heading-lower">We can't wait to see you!</span>
+                    </h1>
+                    <div class="row">
+                        <p class="text-center">A confirmation of this booking is on its way to your chosen email address.</p>
+                        <div class="card mb-3 mx-auto" style="max-width: 70%;">
+                            <div class="row g-0">
+                                <div class="text-center col-md-4 border-end border-3 border-primary">
+                                    <div class="card-body">
+                                        <p class="mb-0"><b>Sitting:</b></p>
+                                        <p>@Model.Booking.Service.MealType</p>
+                                        <p class="mb-0"><b>Date:</b></p>
+                                        <p>@Model.Booking.WordDate</p>
+                                        <p class="mb-0"><b>Time:</b></p>
+                                        <p class="mb-0">@Model.Booking.StartTime.ToShortTimeString()</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Your Booking</h5>
+                                        <p class="card-text">@Model.Booking.Duration mins | @Model.Booking.Guests guests</p>
+                                        <p class="mb-0">123a Coffee Avenue</p>
+                                        <p>Brewstone, NSW, Australia</p>
+                                        <p class="card-text"><small class="text-muted">If you requested for additional time, we will update your booking if the additional time can be allocated.</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center">Please wait while one of our friendly team members allocates and confirms your booking to a table. If you have any enquires regarding your booking, please contact us <!-- TODO: (LINK TO CONTACT PAGE) -->.</p>
+                        <p class="text-center">While you wait, you may wish to review our menu, <!-- TODO: (LINK TO MENU) --> or double check the directions <!-- TODO: (LINK TO DIRECTIONS) --> to our cafe.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+
+}

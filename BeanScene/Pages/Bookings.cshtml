@@ -1,0 +1,114 @@
+﻿@page
+@model BeanScene.Pages.BookingModel
+
+@{
+    ViewData["Title"] = "Bookings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    <link href="~/lib/jqueryui/jquery-ui.css" rel="stylesheet" />
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded rounded">
+                    <h2 class="section-heading text-center mb-3">
+                        <span class="section-heading-upper">We'd love to have you</span>
+                        <span class="section-heading-lower">Book Now</span>
+                    </h2>
+                    <div class="row justify-content-center">
+                        <div class="col-md-10">
+                            <form method="post">
+                                <div id="infoBox">
+                                    <p>Select the date, time and number of guests for your booking. Please note you will be booked for a time slot of ninety (90) minutes, however you may request additional time.</p>
+                                </div>
+                                <div class="row mb-4">
+                                    <section class="col">
+                                        <h3 class="text-center">Select your booking</h3>
+                                        <div class="form-group mb-2">
+                                            <label asp-for="Input.Date" class="control-label mx-2 mt-3"></label>
+                                            <input asp-for="Input.Date" class="form-control" id="datepicker" type="text" />
+                                            <span asp-validation-for="Input.Date" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label asp-for="Input.MealType" class="control-label mx-2 mt-3"></label>
+                                            <select asp-for="Input.MealType" id="mealTypeSelector" class="form-control"></select>
+                                            <span asp-validation-for="Input.MealType" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label asp-for="Input.StartTime" class="control-label mx-2 mt-3"></label>
+                                            <select id="timeSelector" asp-for="Input.StartTime" class="form-control"></select>
+                                            <span asp-validation-for="Input.StartTime" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label asp-for="Input.Guests" class="control-label mx-2 mt-3"></label>
+                                            <input asp-for="Input.Guests" class="form-control" />
+                                            <span asp-validation-for="Input.Guests" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Input.Notes" class="control-label mx-2 mt-3"></label>
+                                            <textarea asp-for="Input.Notes" class="form-control"></textarea>
+                                            <span asp-validation-for="Input.Notes" class="text-danger"></span>
+                                        </div>
+                                    </section>
+                                    <section class="col">
+                                        <h3 class="text-center">Contact Details</h3>
+                                        <div class="form-group mb-2">
+                                            <label asp-for="Input.FirstName" class="control-label mx-2 mt-3"></label>
+                                            <input asp-for="Input.FirstName" class="form-control" />
+                                            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label asp-for="Input.LastName" class="control-label mx-2 mt-3"></label>
+                                            <input asp-for="Input.LastName" class="form-control" />
+                                            <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label asp-for="Input.Email" class="control-label mx-2 mt-3"></label>
+                                            <input asp-for="Input.Email" class="form-control" type="email" />
+                                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Input.Phone" class="control-label mx-2 mt-3"></label>
+                                            <input asp-for="Input.Phone" class="form-control" />
+                                            <span asp-validation-for="Input.Phone" class="text-danger"></span>
+                                        </div>
+                                    </section>
+                                </div>
+                                <section class="row mb-4">
+                                    <div class="form-group mb-1">
+                                        <input type="checkbox" asp-for="Input.AdditionalTimeRequested" />
+                                        <label asp-for="Input.AdditionalTimeRequested" class="control-label"></label>
+                                    </div>
+                                    <div class="form-group mb-1">
+                                        <input asp-for="Input.TermsAgreed" id="termsAndConditions" type="checkbox" />
+                                        <label asp-for="Input.TermsAgreed" class="control-label" for="termsAndConditions">I agree to the <a asp-controller="Home" asp-action="Terms">Terms & Conditions</a> and the <a asp-controller="Home" asp-action="Privacy">Privacy Policy</a>.</label>
+                                        <span asp-validation-for="Input.TermsAgreed" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group mb-1">
+                                        <input id="exclusiveOffers" type="checkbox" />
+                                        <label class="control-label" for="exclusiveOffers">I would like to receive exclusive offers and promotions via email from Bean Scene.</label>
+                                    </div>
+                                </section>
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="form-group text-center">
+                                    <input type="submit" value="Request Booking" class="btn btn-primary btn-lg px-5" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+    <script src="~/js/booking.js"></script>
+}

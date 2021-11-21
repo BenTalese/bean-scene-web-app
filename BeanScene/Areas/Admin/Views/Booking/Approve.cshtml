@@ -1,0 +1,154 @@
+﻿@model BeanScene.Data.Booking
+
+@{
+    ViewData["Title"] = "Approve";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>Approve Booking</h1>
+
+    <h4>Are you sure you want to approve this booking?</h4>
+    <div>
+        <hr />
+        <div class="row">
+            <div class="col-5">
+                <h4>Booking</h4>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-4">
+                        Day/Date:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.WordDate)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Type:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Service.MealType)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Time:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.ShortTime)
+                    </dd>
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Duration):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Duration) minutes.
+                    </dd>
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Guests):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Guests) guests.
+                    </dd>
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Notes):
+                    </dt>
+                    @if (Model.Notes == null)
+                    {
+                        <dd class="col-sm-8">
+                            None.
+                        </dd>
+                    }
+                    else
+                    {
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Notes):
+                        </dd>
+                    }
+                    @*<dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Notes)
+                        </dd>*@
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Source):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Source).
+                    </dd>
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Status):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Status).
+                    </dd>
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Table):
+                    </dt>
+                    @if (Model.Table == null)
+                    {
+                        <dd class="col-sm-8">
+                            Not yet allocated.
+                        </dd>
+                    }
+                    else
+                    {
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Table)
+                        </dd>
+                    }
+                    @*<dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Table)
+                        </dd>*@
+                </dl>
+            </div>
+            <div class="col-5">
+                <h4>Customer</h4>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Customer.FirstName)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Customer.FirstName)
+                    </dd>
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Customer.LastName)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Customer.LastName)
+                    </dd>
+                    @*<dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Customer.DateOfBirth)
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Customer.DateOfBirth)
+                        </dd>*@
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Customer.Phone)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Customer.Phone)
+                    </dd>
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Customer.Email)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Customer.Email)
+                    </dd>
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Customer.Tier)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Customer.Tier)
+                    </dd>
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Customer.VisitCount)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Customer.VisitCount)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <form asp-action="Approve">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Approve" class="btn btn-success" /> |
+            <a asp-action="ManagePending" class="btn btn-primary">Back to List</a>
+        </form>
+    </div>
+</div>

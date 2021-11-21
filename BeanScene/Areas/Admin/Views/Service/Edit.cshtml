@@ -1,0 +1,47 @@
+﻿@model BeanScene.Areas.Admin.Models.ServiceModels.Edit
+
+@using BeanScene.Data
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>Update</h1>
+
+    <h4>Service "@Html.DisplayFor(modelItem => Model.MealType) - @Html.DisplayFor(modelItem => Model.WordDate)"</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="MaxCapacity" class="control-label"></label>
+                    <input asp-for="MaxCapacity" class="form-control" />
+                    <span asp-validation-for="MaxCapacity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="State" class="control-label"></label>
+                    <select asp-for="State" class="form-control">
+                        <option value="">-- Select Service State --</option>
+                        @foreach (ServiceState state in Enum.GetValues(typeof(ServiceState)))
+                        {
+                            <option value="@state.ToString()">@state.ToString()</option>
+                        }
+                    </select>
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <p> </p>
+                    <input type="submit" value="Save" class="btn btn-success" /> |
+                    <a asp-action="Manage" class="btn btn-primary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,230 @@
+﻿@model BeanScene.Areas.Admin.Models.Allocation.Select
+
+@{
+    ViewData["Title"] = "Service Selection";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Select a date, then select a service to assign bookings to.</h2>
+
+<div class="container">
+    <div class="accordion">
+        @{ int count = 0; }
+        @foreach (var year in Model.Years)
+        {
+            string yearString = "year" + year;
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@yearString">
+                        <h2>@year</h2>
+                    </button>
+                </div>
+                <div id="@yearString" class="accordion-collapse collapse">
+                    @foreach (var monthYear in Model.MonthsWithYears)
+                    {
+                        if (monthYear.Year == year)
+                        {
+                            string monthString = monthYear.ToString("MMMM");
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@monthString">
+                                        <span class="h3">@monthString</span>
+                                        <div class="d-flex text-center justify-content-evenly w-100">
+                                            @{
+                                                int unassigned = Model.Services.Where(s => s.Date.Month == monthYear.Month).Sum(s => s.Unassigned);
+                                                int assigned = Model.Services.Where(s => s.Date.Month == monthYear.Month).Sum(s => s.Assigned);
+                                                int totalAssignedTables = 0;
+                                                int maxTimeSlots = 0;
+                                                foreach (var s in Model.Services)
+                                                {
+                                                    if (s.Date.Month == monthYear.Month)
+                                                    {
+                                                        maxTimeSlots += (int)(s.Sitting.EndTime.Subtract(s.Sitting.StartTime).TotalMinutes / 90);   // TODO: This could be a getter
+                                                        totalAssignedTables += s.AssignedTableCount;
+                                                    }
+                                                }
+                                                int serviceCapacity = Model.TotalTableCapacity * maxTimeSlots;
+                                                int vacant = serviceCapacity - totalAssignedTables;
+                                            }
+                                            @if (unassigned > 0)
+                                            {
+                                                <div>
+                                                    <p class="indicator-heading">Unassigned</p>
+                                                    <span class="indicator indicator-unassigned">@unassigned</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div>
+                                                    <p class="indicator-heading">Unassigned</p>
+                                                    <span class="indicator indicator-none">@unassigned</span>
+                                                </div>
+                                            }
+                                            @if (assigned > 0)
+                                            {
+                                                <div>
+                                                    <p class="indicator-heading">Assigned</p>
+                                                    <span class="indicator indicator-assigned">@assigned</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div>
+                                                    <p class="indicator-heading">Assigned</p>
+                                                    <span class="indicator indicator-none">@assigned</span>
+                                                </div>
+                                            }
+                                            @if (vacant > 0)
+                                            {
+                                                <div>
+                                                    <p class="indicator-heading">Vacancies</p>
+                                                    <span class="indicator indicator-vacant">@vacant</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div>
+                                                    <p class="indicator-heading">Vacancies</p>
+                                                    <span class="indicator indicator-none">@vacant</span>
+                                                </div>
+                                            }
+                                        </div>
+                                    </button>
+                                </div>
+                                <div id="@monthString" class="accordion-collapse collapse">
+                                    @foreach (var date in Model.Dates)
+                                    {
+                                        if (date.Month == monthYear.Month)
+                                        {
+                                            string dateId = "date" + count;
+                                            <div class="accordion-body">
+                                                <div class="accordion-item">
+                                                    <div class="accordion-header">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@dateId">
+                                                            <span class="h4">@date.ToShortDateString()</span>
+                                                            <div class="d-flex text-center justify-content-evenly w-100">
+                                                                @{
+                                                                    unassigned = Model.Services.Where(s => s.Date == date).Sum(s => s.Unassigned);
+                                                                    assigned = Model.Services.Where(s => s.Date == date).Sum(s => s.Assigned);
+                                                                    totalAssignedTables = 0;
+                                                                    maxTimeSlots = 0;
+
+                                                                    foreach (var s in Model.Services)
+                                                                    {
+                                                                        if (s.Date == date)
+                                                                        {
+                                                                            maxTimeSlots += (int)(s.Sitting.EndTime.Subtract(s.Sitting.StartTime).TotalMinutes / 90);
+                                                                            totalAssignedTables += s.AssignedTableCount;
+                                                                        }
+                                                                    }
+
+                                                                    serviceCapacity = Model.TotalTableCapacity * maxTimeSlots;
+                                                                    vacant = serviceCapacity - totalAssignedTables;
+                                                                }
+                                                                @if (unassigned > 0)
+                                                                {
+                                                                    <div>
+                                                                        <p class="indicator-heading">Unassigned</p>
+                                                                        <span class="indicator indicator-unassigned">@unassigned</span>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div>
+                                                                        <p class="indicator-heading">Unassigned</p>
+                                                                        <span class="indicator indicator-none">@unassigned</span>
+                                                                    </div>
+                                                                }
+                                                                @if (assigned > 0)
+                                                                {
+                                                                    <div>
+                                                                        <p class="indicator-heading">Assigned</p>
+                                                                        <span class="indicator indicator-assigned">@assigned</span>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div>
+                                                                        <p class="indicator-heading">Assigned</p>
+                                                                        <span class="indicator indicator-none">@assigned</span>
+                                                                    </div>
+                                                                }
+                                                                @if (vacant > 0)
+                                                                {
+                                                                    <div>
+                                                                        <p class="indicator-heading">Vacancies</p>
+                                                                        <span class="indicator indicator-vacant">@vacant</span>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div>
+                                                                        <p class="indicator-heading">Vacancies</p>
+                                                                        <span class="indicator indicator-none">@vacant</span>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                    <div id="@dateId" class="accordion-collapse collapse">
+                                                        @foreach (var service in Model.Services)
+                                                        {
+                                                            if (service.Date == date)
+                                                            {
+                                                                <div class="date-link accordion-body">
+                                                                    <a class="text-decoration-none text-black p-2" asp-action="Manage" asp-route-id="@service.Id">
+                                                                        <span class="h5">@service.Sitting.MealType.ToString()</span>
+                                                                        @{
+                                                                            maxTimeSlots = (int)(service.Sitting.EndTime.Subtract(service.Sitting.StartTime).TotalMinutes / 90);
+                                                                            serviceCapacity = Model.TotalTableCapacity * maxTimeSlots;
+                                                                            vacant = serviceCapacity - service.AssignedTableCount;
+                                                                        }
+                                                                        @if (service.Unassigned > 0)
+                                                                        {
+                                                                            <span class="indicator-mini-heading ms-5 ps-5">Unassigned</span>
+                                                                            <span class="indicator-mini indicator-unassigned">@service.Unassigned</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="indicator-mini-heading ms-5 ps-5">Unassigned</span>
+                                                                            <span class="indicator-mini indicator-none">@service.Unassigned</span>
+                                                                        }
+                                                                        @if (service.Assigned > 0)
+                                                                        {
+                                                                            <span class="indicator-mini-heading ms-5 ps-5">Assigned</span>
+                                                                            <span class="indicator-mini indicator-assigned">@service.Assigned</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="indicator-mini-heading ms-5 ps-5">Assigned</span>
+                                                                            <span class="indicator-mini indicator-none">@service.Assigned</span>
+                                                                        }
+                                                                        @if (vacant > 0)
+                                                                        {
+                                                                            <span class="indicator-mini-heading ms-5 ps-5">Vacancies</span>
+                                                                            <span class="indicator-mini indicator-vacant">@vacant</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="indicator-mini-heading ms-5 ps-5">Vacancies</span>
+                                                                            <span class="indicator-mini indicator-none">@vacant</span>
+                                                                        }
+                                                                    </a>
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            count++;
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

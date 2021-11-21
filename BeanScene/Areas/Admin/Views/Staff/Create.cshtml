@@ -1,0 +1,60 @@
+﻿@model BeanScene.Areas.Admin.Models.Staff.Create
+
+@{
+    ViewData["Title"] = "Create New Staff";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h3>Create New Staff Account</h3>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mb-1">
+                    <label asp-for="UserName" class="control-label mx-2 mt-3"></label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-1">
+                    <label asp-for="Email" class="control-label mx-2 mt-3"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-1">
+                    <label asp-for="Phone" class="control-label mx-2 mt-3"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-1">
+                    <label class="form-label mx-2 mt-3" asp-for="Password"></label>
+                    <input asp-for="Password" id="password" class="form-control" placeholder="10 char min, alphanumeric, 1 non-alphanumeric min, 1 uppercase & lowercase min" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-1">
+                    <label class="form-label mx-2 mt-3" asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" id="confirm" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-1">
+                    <input type="checkbox" class="mx-2 mt-3" asp-for="IsManager" />
+                    <label asp-for="IsManager" class="control-label"></label>
+                </div>
+                <div class="form-group">
+                    <p> </p>
+                    <input type="submit" value="Create" class="btn btn-success" /> | 
+                    <a asp-action="Manage" class="btn btn-primary">Back to List</a>
+                    <p> </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

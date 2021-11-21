@@ -1,0 +1,21 @@
+﻿@model BeanScene.Data.Service
+
+@{
+    ViewData["Title"] = "Generate Services";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>Generate New Services</h1>
+
+    <h4>Are you sure you want to auto generate services for the next 7 days?</h4>
+    <p class="text-danger h6">Note, this will not create a service if one already exists for that day and meal time.</p>
+    <div>
+        <hr />
+        <form asp-action="Upsert" asp-route-value="7">
+            <input type="submit" value="Generate" class="btn btn-success" />
+            <p> </p>
+            <a asp-action="Manage">Back to List</a>
+        </form>
+    </div>
+</div>

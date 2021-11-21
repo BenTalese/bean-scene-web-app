@@ -1,0 +1,153 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BeanScene.Data
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @if (User.IsInRole(nameof(Role.Manager)))
+    {
+        <title>@ViewData["Title"] - BeanScene - Manager</title>
+    }
+    else if (User.IsInRole(nameof(Role.Employee)))
+    {
+        <title>@ViewData["Title"] - BeanScene - Employee</title>
+    }
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/admin-styling.css" rel="stylesheet" />
+    @await RenderSectionAsync("Head", required: false)
+</head>
+<body>
+    @if (User.IsInRole(nameof(Role.Manager)))
+    {
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-success border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    <a id="role" class="navbar-brand" asp-area="Admin" asp-controller="Home" asp-action="Index">BeanScene - Manager</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sittings</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Sitting" asp-action="Create">Create New</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Sitting" asp-action="Manage">Manage Existing</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Service" asp-action="Create">Create New</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Service" asp-action="Manage">Manage Existing</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Seating Areas</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Area" asp-action="CreateArea">Create New</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Area" asp-action="Manage">Manage Existing</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Bookings</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Booking" asp-action="Create">Create New</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Booking" asp-action="ManageToday">View Today</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Booking" asp-action="ManagePending">View Pending</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Booking" asp-action="Manage">Manage Existing</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="Allocation" asp-action="Select">Table Allocation</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Staff</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Staff" asp-action="Create">Create New</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Staff" asp-action="Manage">Manage Existing</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Customers</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Customer" asp-action="Create">Create New</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Customer" asp-action="Manage">Manage Existing</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Feedback</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Feedback" asp-action="Create">Create New</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Feedback" asp-action="Manage">Manage Existing</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Reports</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Report" asp-action="Current">View Current Report</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Report" asp-action="Archive">View Past Reports</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container-fluid">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    }
+    else if (User.IsInRole(nameof(Role.Employee)))
+    {
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    <a id="role" class="navbar-brand" asp-area="Admin" asp-controller="Home" asp-action="Index">BeanScene - Employee</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Customers</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Customer" asp-action="Create">Create New</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Customer" asp-action="Manage">Manage Existing</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Bookings</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Booking" asp-action="Create">Create New</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Booking" asp-action="ManageToday">View Today</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Booking" asp-action="ManagePending">View Pending</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Booking" asp-action="Manage">Manage Existing</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="Allocation" asp-action="Select">Table Allocation</a></li>
+                        </ul>
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container-fluid">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    }
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BeanScene.Data 
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if (User.Identity.IsAuthenticated && User.IsInRole(nameof(Role.Manager)) || User.IsInRole(nameof(Role.Employee)))
+    {
+        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase text-black btn btn-primary" asp-area="Admin">ADMIN</a></li>
+    }
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item px-lg-4">
+            <a id="welcome" class="nav-link text-uppercase" asp-area="Identity" asp-page="/Account/Manage/Index">Hello @User.Identity.Name!</a>
+        </li>
+        <li class="nav-item px-lg-4">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link text-uppercase btn btn-link">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item px-lg-4">
+            <a id="register" class="nav-link text-uppercase" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item px-lg-4">
+            <a id="login" class="nav-link text-uppercase" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
+</ul>

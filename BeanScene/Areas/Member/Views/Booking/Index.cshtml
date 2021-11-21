@@ -1,0 +1,75 @@
+﻿@model IEnumerable<BeanScene.Data.Booking>
+@using BeanScene.Data
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+                    <h2 class="section-heading mb-5">
+                        <span class="section-heading-upper">BeanScene Bookings</span>
+                        <span class="section-heading-lower">View Your Bookings</span>
+                    </h2>
+                    <hr />
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Day & Date
+                                </th>
+                                <th>
+                                    Sitting & Time
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Guests)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </th>
+                                <th>Manage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.WordDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Service.MealType) @@ @Html.DisplayFor(modelItem => item.ShortTime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Guests)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    @if ((item.Status) == Status.Cancelled)
+                                    {
+                                        <td>
+                                            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                            <a asp-action="Cancel" asp-route-id="@item.Id">Cancel</a>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

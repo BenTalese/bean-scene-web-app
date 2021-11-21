@@ -1,0 +1,82 @@
+﻿@model BeanScene.Areas.Admin.Models.BookingModels.Create
+@{
+    ViewData["Title"] = "Create New Booking";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    <link href="~/lib/jqueryui/jquery-ui.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <h3>Create New Booking</h3>
+
+    <hr />
+    <div class="row">
+        <form asp-action="Create">
+            <div class="col-md-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label"></label>
+                    <input asp-for="Date" class="form-control" id="datepicker" type="text" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MealType" class="control-label"></label>
+                    <select asp-for="MealType" id="mealTypeSelector" class="form-control"></select>
+                    <span asp-validation-for="MealType" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StartTime" class="control-label"></label>
+                    <select id="timeSelector" asp-for="StartTime" class="form-control"></select>
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Guests" class="control-label"></label>
+                    <input asp-for="Guests" class="form-control" />
+                    <span asp-validation-for="Guests" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Notes" class="control-label"></label>
+                    <textarea asp-for="Notes" class="form-control"></textarea>
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" type="email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone" class="control-label"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <p> </p>
+                <input type="submit" value="Create" class="btn btn-success" /> |
+                <a asp-action="Manage" class="btn btn-primary">Back to List</a>
+                <p> </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+        <script src="~/lib/jqueryui/jquery-ui.js"></script>
+        <script src="~/js/booking.js"></script>
+    }

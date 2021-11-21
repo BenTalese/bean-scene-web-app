@@ -1,0 +1,72 @@
+﻿@model BeanScene.Data.Customer
+@using BeanScene.Data
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>Update</h1>
+
+    <h4>Customer</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateOfBirth" class="control-label"></label>
+                    <input asp-for="DateOfBirth" class="form-control" />
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone" class="control-label"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tier" class="control-label"></label>
+                    <select asp-for="Tier" class="form-control">
+                        <option value="">-- Select Customer Tier --</option>
+                        @foreach (Tier type in Enum.GetValues(typeof(Tier)))
+                        {
+                            <option value="@type.ToString()">@type.ToString()</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Tier" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="VisitCount" class="control-label"></label>
+                    <input asp-for="VisitCount" class="form-control" />
+                    <span asp-validation-for="VisitCount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <p> </p>
+                    <input type="submit" value="Save" class="btn btn-success" /> |
+                    <a asp-action="Manage" class="btn btn-primary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

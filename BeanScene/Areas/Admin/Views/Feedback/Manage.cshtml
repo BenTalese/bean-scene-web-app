@@ -1,0 +1,109 @@
+﻿@model IEnumerable<BeanScene.Data.Feedback>
+
+@{
+    ViewData["Title"] = "Manage Feedback";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>Manage Feedback</h1>
+    <p></p>
+    <p>
+        <a class="btn btn-primary btn-lg" asp-action="Create">Create New</a>
+    </p>
+    <div class="table-section">
+        <div class="header-manager p-2">
+            <h4 class="ms-1 text-white">Feedback</h4>
+        </div>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.ActionLink("Reason", "Manage", new { sortOrder = ViewBag.ReasonSortParm })
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Comments)
+                    </th>
+                    <th>
+                        @Html.ActionLink("Rating", "Manage", new { sortOrder = ViewBag.RatingSortParm })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Follow Up", "Manage", new { sortOrder = ViewBag.RequestSortParm })
+                    </th>
+                    <th>Manage Feedback</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reason)
+                        </td>
+                        @if (item.Title == null)
+                        {
+                            <td>
+                                No Title.
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                        }
+                        @if (item.Comments == null)
+                        {
+                            <td>
+                                No Comments Made.
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Comments)
+                            </td>
+                        }
+                        @if (item.Rating == 5)
+                        {
+                            <td class="text-success">
+                                @Html.DisplayFor(modelItem => item.Rating)/5
+                            </td>
+                        }
+                        else if (item.Rating == 4)
+                        {
+                            <td class="text-warning">
+                                @Html.DisplayFor(modelItem => item.Rating)/5
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.Rating)/5
+                            </td>
+                        }
+                        @if (item.FollowUpRequested)
+                        {
+                            <td class="text-danger">
+                                Requested
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                Not Required
+                            </td>
+                        }
+                        <td>
+                            <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+﻿@model BeanScene.Areas.Admin.Models.AreaModels.AreaTable
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h3>Create Table for Area "@Html.DisplayFor(model => model.Name)"</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form id="form" asp-action="CreateTable">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Name" />
+                <input type="hidden" asp-for="Prefix" />
+                <div class="form-group">
+                    <label asp-for="Seats" class="control-label"></label>
+                    <input asp-for="Seats" class="form-control" />
+                    <span asp-validation-for="Seats" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <p> </p>
+                    <input id="form-submit" type="submit" value="Create" class="btn btn-success" /> | 
+                    <input type="button" onclick="finishTableCreation()" value="Back to Area" class="btn btn-primary" /> | 
+                    <a asp-action="Manage" class="btn btn-primary">Back to List</a>
+                    <input id="finished" type="hidden" asp-for="TableCreationFinished" />
+                    <p> </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+        <script>
+            function finishTableCreation() {
+                document.getElementById('finished').value = 'true';
+                document.getElementById('form').submit();
+            }
+        </script>
+    }

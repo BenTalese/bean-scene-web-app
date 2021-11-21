@@ -1,0 +1,113 @@
+﻿@model BeanScene.Areas.Admin.Models.Allocation.Index
+
+@{
+    ViewData["Title"] = Model.Service.Sitting.MealType.ToString() + " " + Model.Service.Date.ToShortDateString() + " - Service Management";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    <link href="~/lib/jqueryui/jquery-ui.css" rel="stylesheet" />
+    <link href="~/css/allocate.css" rel="stylesheet" />
+}
+
+<header class="header">
+    <input id="dateForFetchAPI" type="hidden" value="@Model.Service.Date.ToShortDateString()" />
+    <div class="bdr">
+        <table id="timeTable" class="table table-hover table-bordered text-center timeline timeline-expanded">
+            <!-- auto generated table -->
+        </table>
+    </div>
+</header>
+
+<div id="dialog" title="Alert" class="text-center">
+    <p id="heading" class="h4"></p>
+    <p id="message"></p>
+</div>
+
+<div class="row">
+    <div class="sidebar text-center col-lg-3 ps-4">
+        <div class="row d-flex mt-3 mb-2 align-content-between">
+            <button id="submitBtn" class="col btn btn-primary p-2 mx-2" onclick="submitTableReservations()">Confirm All Assigned</button>
+            <button id="undoBtn" class="col btn p-2 mx-2" onclick="undoChanges()">Undo Changes</button>
+        </div>
+        <div id="switch-container" class="mb-2 p-2">
+            <div class="form-check form-switch form-check-inline">
+                <!-- d-flex justify-content-start-->
+                <label class="form-check-label" for="showAll">Show All Bookings</label>
+                <input class="form-check-input me-5" type="checkbox" id="showAll">
+            </div>
+        </div>
+        <div class="accordion">
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#unassigned">
+                        Unassigned
+                    </button>
+                </h3>
+                <div id="unassigned" class="accordion-collapse collapse">
+                    <!-- populated by JS -->
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#assigned">
+                        Assigned
+                    </button>
+                </h3>
+                <div id="assigned" class="accordion-collapse collapse">
+                    <!-- populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 pe-4">
+        @foreach (var area in Model.Areas)
+        {
+            <div class="area">
+                <div class="d-flex align-items-center justify-content-between px-4 area-details">
+                    <span class="h2">@area.Name</span>
+                    <span class="h5"><!--Available Tables: 0 | Available Seats: 0--></span>
+                </div>
+                <div class="flex-container">
+                    @foreach (var table in area.Tables)
+                    {
+                        string tableName = table.Prefix + "-" + table.Id;
+                        <div id="@tableName" class="table">
+                            <p>@tableName</p>
+                            <div id="dropBox" class="droppable droppable-box"></div>
+                            <p id="takenSeatTotal">0/@table.Seats</p>
+                            @for (int i = 0; i < table.Seats; i++)
+                            {
+                                <div id="seat" class="seat seatIcon-available"></div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+    <script src="~/lib/moment.js/moment.min.js"></script>
+
+    <script src="~/js/allocation/fetch.js"></script>
+    <script src="~/js/allocation/persistence-logic.js"></script>
+    <script src="~/js/allocation/page-initialisation.js"></script>
+    <script src="~/js/allocation/helper-functions.js"></script>
+
+    <script src="~/js/allocation/timetable/timetable-initialise.js"></script>
+    <script src="~/js/allocation/timetable/timetable-buttons.js"></script>
+    <script src="~/js/allocation/timetable/head-generation.js"></script>
+    <script src="~/js/allocation/timetable/body-generation.js"></script>
+
+    <script src="~/js/allocation/drag-drop/booking-list-initialise.js"></script>
+    <script src="~/js/allocation/drag-drop/area-table-initialise.js"></script>
+    <script src="~/js/allocation/drag-drop/table-seat-management.js"></script>
+    <script src="~/js/allocation/drag-drop/drag-drop-initialise.js"></script>
+    <script src="~/js/allocation/drag-drop/pre-existing-booking-logic.js"></script>
+    <script src="~/js/allocation/drag-drop/visual-assignment-logic.js"></script>
+
+    <script src="~/js/allocation/notify.js"></script>
+}

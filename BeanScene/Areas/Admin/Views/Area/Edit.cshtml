@@ -1,0 +1,77 @@
+﻿@model BeanScene.Areas.Admin.Models.AreaModels.Edit
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>Update</h1>
+
+    <h4>Area "@Html.DisplayFor(model => model.Name)"</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <p> </p>
+                    <input type="submit" value="Save" class="btn btn-success" /> |
+                    <a class="btn btn-success" asp-action="CreateTable" asp-route-areaName="@Model.Name">Add Table</a> | 
+                    <a class="btn btn-primary" asp-action="Manage">Back to List</a>
+                    @for (int i = 0; i < Model.Tables.Count; i++)
+                    {
+                        <input type="hidden" asp-for="Tables[i].Id" />
+                        <input type="hidden" asp-for="Tables[i].Name" />
+                        <input type="hidden" asp-for="Tables[i].Seats" />
+                    }
+                    <p> </p>
+                </div>
+            </form>
+        </div>
+        <p>
+            
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Seats
+                    </th>
+                    <th>Manage Tables</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Tables)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Seats)
+                        </td>
+                        <td>
+                            <a class="btn btn-success btn-sm" asp-action="EditTable" asp-route-id="@item.Id" asp-route-areaId="@Model.Id">Update</a> |
+                            <a class="btn btn-danger btn-sm" asp-action="DeleteTable" asp-route-id="@item.Id" asp-route-areaId="@Model.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

@@ -1,0 +1,365 @@
+﻿.booking-assigned {
+    background-color: honeydew;
+    margin: 0;
+    transition: 0.5s;
+}
+
+.draggable-booking {
+    background-color: white;
+    font-weight: bold;
+}
+
+.table {
+    margin: 0;
+    table-layout: fixed;
+}
+
+table td {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+table td:hover {
+    background-color: #DADADA;
+}
+
+table .timeline-booking-confirmed {
+    transition: 0.5s;
+    background-color: #D9F7D9;
+}
+
+table .timeline-booking-assigned {
+    transition: 0.5s;
+    background-color: #9BC9F7;
+}
+
+.bdr {
+    border: 3px solid dimgrey;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.timeline-booking-highlight {
+    background-color: dodgerblue !important;
+    transition: 0.5s;
+}
+
+.time-cell {
+    background-color: #212529;
+    transition: 0.3s;
+}
+
+.time-cell:hover {
+    background-color: midnightblue !important;
+    transition: 0.3s;
+}
+
+.time-cell-selected {
+    background-color: darkred !important;
+    transition: 0.3s;
+}
+
+.time-cell-unassigned {
+    background-color: #212529;
+    animation-name: unassigned-blink;
+    animation-duration: 1s;
+    animation-iteration-count: 10;
+    animation-direction: alternate;
+}
+@keyframes unassigned-blink {
+    from { background-color: #212529; }
+    to { background-color: #b8860b; }
+}
+
+.cell-selected {
+    background-color: lightpink !important;
+    transition: 0.3s;
+}
+
+.arrow {
+    border: solid white;
+    border-width: 0 6px 6px 0;
+    display: inline-block;
+    padding: 7px;
+    transition: 0.5s;
+}
+
+.arrow-hover {
+    padding: 10px;
+    transition: 0.5s;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.booking-unassigned {
+    background-color: antiquewhite;
+    margin: 0;
+    cursor: grab;
+    transition: 0.5s;
+}
+
+.booking-partiallyAssigned {
+    background-color: lightsalmon;
+    margin: 0;
+    cursor: grab;
+    transition: 0.5s;
+}
+
+.booking-disabled {
+    background-color: lightgrey !important;
+    border-radius: 0.3em;
+}
+
+.tableReservation-confirmed {
+    background-color: darkseagreen;
+    padding-top: 5px;
+    height: 100%;
+}
+
+.tableReservation-confirmed-box {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    margin-bottom: 10px;
+    background-color: lightgray;
+    border: 2px solid dimgrey;
+    transition: 0.5s;
+}
+
+.draggable-helper-dragging {
+    width: 40px;
+    height: 40px;
+    padding: 7px;
+    border: 2px solid black;
+    background-color: lightskyblue;
+    font-weight: bold;
+    cursor: grabbing;
+}
+
+.booking-highlight {
+    border: 5px solid dodgerblue !important;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+.draggable-helper-dropped {
+    background-color: lightskyblue;
+    transition: 0.5s;
+    height: 100%;
+    padding: 7px;
+}
+
+.draggable-helper-dropped:hover {
+    background-color: orangered;
+    text-decoration: line-through;
+    transition: 0.5s;
+    height: 100%;
+}
+
+.droppable-box {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    margin-bottom: 10px;
+    background-color: lightgray;
+    border: 2px dashed dimgrey;
+    transition: 0.5s;
+}
+
+.ui-state-hover {
+    height: 70px;
+    width: 70px;
+    transition: 0.5s;
+}
+
+.booking-cancelled {
+    background-color: mistyrose;
+    margin: 0;
+    padding: 0;
+}
+
+.seatIcon-unavailable {
+    background-color: darkseagreen;
+    width: 15px;
+    height: 15px;
+    margin: 1px;
+    border-radius: 2px;
+    transition: 0.5s;
+    display: inline-flex;
+}
+
+.seatIcon-available {
+    background-color: dimgray;
+    width: 15px;
+    height: 15px;
+    margin: 1px;
+    border-radius: 2px;
+    transition: 0.5s;
+    display: inline-flex;
+}
+
+.ui-dialog-titlebar-close {
+    display: none;
+}
+
+.ui-dialog .ui-dialog-buttonpane { 
+    text-align: center;
+}
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { 
+    float: none;
+}
+
+.ui-dialog-buttonset > button {
+    background-color: #3498db;
+    border-radius: 8px;
+    border: none;
+    color: #ffffff;
+    padding: 4px 9px 4px 9px;
+}
+
+.sitting-link {
+    text-decoration: none;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    border: 0;
+
+}
+
+.ui-dialog-buttonset > button:hover  {
+    background-color: #3cb0fd;
+}
+
+.sidebar {
+    font-size: 1.2em;
+}
+
+#switch-container {
+    display: block;
+    width: 100%;
+    border-radius: 0.3em;
+    background-color: #E7F1FF;
+}
+
+#switch-container:hover {
+    display: block;
+    width: 100%;
+    border-radius: 0.3em;
+    background-color: #C2D6F2;
+}
+
+#submitBtn {
+    font-size: 1.2em;
+}
+
+#undoBtn {
+    background-color: lightcoral;
+    color: white;
+    font-size: 1.2em;
+}
+
+.accordion-button {
+    font-size: 0.7em;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 0.5em;
+}
+
+.flex-container > div {
+    background-color: #FBFAF1;
+    border: 0.1em solid #BEBEBE;
+    padding: 0.4em;
+    margin: 0.2em;
+    text-align: center;
+    line-height: 1em;
+    font-size: 1.4em;
+    border-radius: 1em;
+    width: 5.5em;
+    transition: 0.3s;
+}
+
+.flex-container > div:hover {
+    background-color: #FEFFD4;
+    border: 0.1em solid #BEBEBE;
+    padding: 0.4em;
+    margin: 0.2em;
+    text-align: center;
+    line-height: 1em;
+    font-size: 1.4em;
+    border-radius: 1em;
+    width: 5.5em;
+    transition: 0.3s;
+}
+
+.area {
+    border-radius: 0.8em;
+    background-color: #E0E0E0;
+    overflow: hidden;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.area-details {
+    background-color: #dbeaff;
+    padding: 5px;
+}
+
+.area-details:hover {
+    background-color: #CDD9EA;
+    padding: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {
+        -webkit-transform: scale(0)
+    }
+
+    to {
+        -webkit-transform: scale(1)
+    }
+}
+
+@keyframes animatezoom {
+    from {
+        transform: scale(0)
+    }
+
+    to {
+        transform: scale(1)
+    }
+}

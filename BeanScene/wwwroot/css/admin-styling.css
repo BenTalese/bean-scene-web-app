@@ -1,0 +1,129 @@
+﻿.table-section {
+    border-radius: 0.8em;
+    overflow: hidden;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.header-manager {
+    background-color: #65AF8D;
+    padding: 5px;
+}
+
+.header-staff {
+    background-color: #5D9EFD;
+    padding: 5px;
+}
+
+
+table td:hover {
+    background-color: rgba(0,0,0,.075);
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 0.5em;
+}
+
+.flex-container > div {
+    background-color: #FBFAF1;
+    border: 0.1em solid #BEBEBE;
+    padding: 0.4em;
+    margin: 0.2em;
+    text-align: center;
+    line-height: 1em;
+    font-size: 1.4em;
+    border-radius: 1em;
+    width: 5.5em;
+    transition: 0.3s;
+}
+
+.flex-container > div:hover {
+    background-color: #FEFFD4;
+    border: 0.1em solid #BEBEBE;
+    padding: 0.4em;
+    margin: 0.2em;
+    text-align: center;
+    line-height: 1em;
+    font-size: 1.4em;
+    border-radius: 1em;
+    width: 5.5em;
+    transition: 0.3s;
+}
+
+.indicator {
+    font-size: 30px;
+    border-radius: 10px;
+    padding: 3px 25px 3px 25px;
+    color: white;
+}
+
+.indicator-heading {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 5px;
+}
+
+.indicator-mini {
+    font-size: 25px;
+    border-radius: 10px;
+    padding: 0 15px 0 15px;
+    color: white;
+}
+
+.date-link {
+    border: 3px solid lightgrey;
+    border-radius: 15px;
+    margin: 10px;
+    transition: 0.5s;
+}
+
+.date-link:hover {
+    background-color: #cfecff;
+    transition: 0.5s;
+}
+
+.indicator-mini-heading {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px;
+}
+
+.indicator-unassigned {
+    background-color: #981010;
+}
+
+.indicator-assigned {
+    background-color: #109825;
+}
+
+.indicator-vacant {
+    background-color: #101198;
+}
+
+.indicator-none {
+    background-color: #767676;
+}
+
+.btn {
+    font-weight: bold;
+}
+
+#logout {
+    font-weight: normal;
+    font-size: large;
+}
+
+nav {
+    font-size: large;
+}
+
+#role {
+    font-weight: bold;
+}
+
+/*body {
+    font-size: large;
+}*/

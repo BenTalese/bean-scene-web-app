@@ -1,0 +1,109 @@
+﻿@page
+@model BeanScene.Pages.FeedbackModel
+@using BeanScene.Data
+
+@{
+    ViewData["Title"] = "Feedback";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    <link href="~/lib/starability-master/starability-minified/starability-all.min.css" rel="stylesheet" />
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded rounded">
+                    <h2 class="section-heading text-center mb-3">
+                        <span class="section-heading-upper">How did we do?</span>
+                        <span class="section-heading-lower">Submit Feedback</span>
+                    </h2>
+                    <div class="row justify-content-center">
+                        <div class="col-md-10">
+                            <form method="post">
+                                <div class="form-group mb-2">
+                                    <label asp-for="Input.Title" class="control-label mx-2 mt-3"></label>
+                                    <input asp-for="Input.Title" class="form-control" />
+                                    <span asp-validation-for="Input.Title" class="text-danger"></span>
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label asp-for="Input.Reason" class="control-label mx-2 mt-3"></label>
+                                    <select asp-for="Input.Reason" class="form-control">
+                                        <option value="">-- Select feedback reason --</option>
+                                        @foreach (Reason reason in Enum.GetValues(typeof(Reason)))
+                                        {
+                                            <option value="@reason.ToString()">@reason.ToString()</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="Input.Reason" class="text-danger"></span>
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label asp-for="Input.Comments" class="control-label mx-2 mt-3"></label>
+                                    <textarea asp-for="Input.Comments" class="form-control"></textarea>
+                                    <span asp-validation-for="Input.Comments" class="text-danger"></span>
+                                </div>
+
+                                <!-- Star rating -->
+                                <div class="align-items-center justify-content-center">
+                                    <label asp-for="Input.Rating" class="control-label"></label>
+                                    <input asp-for="Input.Rating" id="rating" type="hidden" />
+                                    <fieldset class="starability-heart form-group mb-2">
+                                        <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+
+                                        <input type="radio" id="rate1" class="star" name="rating" value="1" />
+                                        <label for="rate1" title="Terrible">1 star</label>
+
+                                        <input type="radio" id="rate2" class="star" name="rating" value="2" />
+                                        <label for="rate2" title="Not good">2 stars</label>
+
+                                        <input type="radio" id="rate3" class="star" name="rating" value="3" />
+                                        <label for="rate3" title="Average">3 stars</label>
+
+                                        <input type="radio" id="rate4" class="star" name="rating" value="4" />
+                                        <label for="rate4" title="Very good">4 stars</label>
+
+                                        <input type="radio" id="rate5" class="star" name="rating" value="5" />
+                                        <label for="rate5" title="Amazing">5 stars</label>
+                                    </fieldset>
+                                </div>
+
+                                <!-- Optional contact section -->
+                                <input asp-for="Input.FollowUpRequested" type="checkbox" id="enableContact" />
+                                <label class="control-label" for="enableContact">I would like to be contacted to follow up on this feedback.</label>
+                                <section id="contactInputs" class="border p-3 mt-1 border-4 rounded-2 border-secondary">
+                                    <div class="form-group mb-2">
+                                        <label asp-for="Input.Name" class="control-label mx-2 mt-3"></label>
+                                        <input asp-for="Input.Name" class="form-control" />
+                                        <span asp-validation-for="Input.Name" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label asp-for="Input.Email" class="control-label mx-2 mt-3"></label>
+                                        <input asp-for="Input.Email" class="form-control" />
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label asp-for="Input.Phone" class="control-label mx-2 mt-3"></label>
+                                        <input asp-for="Input.Phone" class="form-control" />
+                                        <span asp-validation-for="Input.Phone" class="text-danger"></span>
+                                    </div>
+                                </section>
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group text-center mt-4">
+                                    <input type="submit" value="Submit Feedback" class="btn btn-primary btn-lg" />
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/feedback.js"></script>
+}

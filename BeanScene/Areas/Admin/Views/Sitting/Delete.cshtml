@@ -1,0 +1,65 @@
+﻿@model BeanScene.Data.Sitting
+
+@{
+    ViewData["Title"] = "Delete Sitting";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>Delete</h1>
+
+    <h4>Sitting "@Html.DisplayFor(model => model.DayOfWeek) @Html.DisplayFor(model => model.MealType)"</h4>
+    <div>
+
+        <hr />
+        <dl class="row">
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DayOfWeek):
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DayOfWeek)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MealType):
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MealType)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.StartTime):
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.StartTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.EndTime):
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EndTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IsActive):
+            </dt>
+            @if (Model.IsActive)
+            {
+                <dd class="col-sm-10 text-primary">
+                    Active
+                </dd>
+            }
+            else
+            {
+                <dd class="col-sm-10 text-warning">
+                    Disabled
+                </dd>
+            }
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <p> </p>
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-action="Manage" class="btn btn-primary">Back to List</a>
+        </form>
+    </div>
+</div>

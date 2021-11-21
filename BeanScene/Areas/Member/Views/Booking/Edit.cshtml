@@ -1,0 +1,85 @@
+﻿@model BeanScene.Areas.Member.Models.BookingModels.Edit
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+                    <h2 class="section-heading mb-5">
+                        <span class="section-heading-upper">BeanScene Bookings</span>
+                        <span class="section-heading-lower">Edit A Booking</span>
+                    </h2>
+                    <h3>Request a change to your booking?</h3>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-8 offset-2">
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="Time" class="control-label"></label>
+                                    <select  asp-for="Time" asp-items="Model.Times" class="form-control"></select>
+                                    <span asp-validation-for="Time" class="text-danger"></span>
+                                </div>
+                                @*<div class="form-group">
+                                        <label asp-for="Duration" class="control-label"></label>
+                                        <input asp-for="Duration" class="form-control" />
+                                        <span asp-validation-for="Duration" class="text-danger"></span>
+                                </div>*@
+                                <div class="form-group">
+                                    <label asp-for="Guests" class="control-label"></label>
+                                    <input asp-for="Guests" class="form-control" />
+                                    <span asp-validation-for="Guests" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Notes" class="control-label"></label>
+                                    <input asp-for="Notes" class="form-control" />
+                                    <span asp-validation-for="Notes" class="text-danger"></span>
+                                </div>
+                                <p> </p>
+                                <div class="form-group mb-1">
+                                    <input type="checkbox" asp-for="AdditionalTimeRequested" />
+                                    <label asp-for="AdditionalTimeRequested" class="control-label"></label>
+                                </div>
+                                @*<input type="hidden" asp-for="Source" />
+                                    <input type="hidden" asp-for="Status" />
+                                    <input type="hidden" asp-for="Table" />
+                                    <div class="form-group">
+                                        <label asp-for="Source" class="control-label"></label>
+                                        <select asp-for="Source" class="form-control"></select>
+                                        <span asp-validation-for="Source" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Status" class="control-label"></label>
+                                        <select asp-for="Status" class="form-control"></select>
+                                        <span asp-validation-for="Status" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Table" class="control-label"></label>
+                                        <input asp-for="Table" class="form-control" />
+                                        <span asp-validation-for="Table" class="text-danger"></span>
+                                    </div>*@
+                                <div class="form-group">
+                                    <p> </p>
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                    <p> </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div>
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

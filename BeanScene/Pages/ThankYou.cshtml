@@ -1,0 +1,34 @@
+﻿@page
+@model BeanScene.Pages.ThankYouModel
+@using BeanScene.Data
+
+@{
+    ViewData["Title"] = "Feedback";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    <link href="~/lib/starability-master/starability-minified/starability-all.min.css" rel="stylesheet" />
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+                    <h2 class="section-heading mb-3">
+                        <span class="section-heading-upper">We appreciate your feedback</span>
+                        <span class="section-heading-lower">Thank you very much</span>
+                    </h2>
+                    <hr />
+                    <p class="text-center">We appreciate your review of our service. One of our friendly staff is reviewing your feedback.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/feedback.js"></script>
+}

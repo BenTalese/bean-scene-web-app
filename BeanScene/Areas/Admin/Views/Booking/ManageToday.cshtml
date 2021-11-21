@@ -1,0 +1,160 @@
+﻿@model IEnumerable<BeanScene.Data.Booking>
+
+@{
+    ViewData["Title"] = "Manage Pending Bookings";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>Manage Today's Bookings</h1>
+    <p></p>
+    <p>
+        <a class="btn btn-primary btn-lg" asp-action="Create">Create New</a>
+    </p>
+    @using (Html.BeginForm())
+    {
+        <p>
+            Search by Surname or Phone Number:  @Html.TextBox("SearchString")
+            <input type="submit" value="Search" />
+        </p>
+    }
+    <div class="table-section">
+        <div class="header-manager p-2">
+            <h4 class="ms-1 text-white">Bookings</h4>
+        </div>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.ActionLink("Day & Date", "ManageToday", new { sortOrder = ViewBag.DateSortParm })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Sitting Type", "ManageToday", new { sortOrder = ViewBag.TypeSortParm })
+                    </th>
+                    <th>
+                        Start Time
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Duration)
+                    </th>
+                    <th>
+                        Customer
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Guests)
+                    </th>
+                    @*<th>
+                            Phone
+                        </th>*@
+                    <th>
+                        @Html.ActionLink("Status", "ManageToday", new { sortOrder = ViewBag.StatusSortParm })
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Table)
+                    </th>
+                    <th>Manage Bookings</th>
+                    @*<th></th>*@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WordDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Service.MealType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShortTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Duration)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customer.FirstName) @Html.DisplayFor(modelItem => item.Customer.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Guests)
+                    </td>
+                    @*<td>
+            @Html.DisplayFor(modelItem => item.Customer.Phone)
+        </td>*@
+                    @if (item.Status == BeanScene.Data.Status.Pending)
+                    {
+                        <td class="text-warning">
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                    }
+                    else if (item.Status == BeanScene.Data.Status.Approved)
+                    {
+                        <td class="text-success">
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                    }
+                    else if (item.Status == BeanScene.Data.Status.Seated)
+                    {
+                        <td class="text-primary">
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                    }
+                    else if (item.Status == BeanScene.Data.Status.Cancelled)
+                    {
+                        <td class="text-danger">
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                    }
+                    else if (item.Status == BeanScene.Data.Status.NoShow)
+                    {
+                        <td class="text-danger">
+                            No-Show
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                    }
+                    @if (item.Table == null)
+                    {
+                        <td>
+                            Not yet allocated.
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Table)
+                        </td>
+                    }
+                    @*<td>
+            <a class="btn btn-success btn-sm" asp-action="Edit" asp-route-id="@item.Id">Update</a> |
+            <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+        </td>*@
+                    @if (item.Status == BeanScene.Data.Status.Approved)
+                    {
+                        <td>
+                            <a asp-action="Seated" asp-route-id="@item.Id" class="btn btn-success btn-sm">Booking Seated</a> |
+                            <a asp-action="NoShow" asp-route-id="@item.Id" class="btn btn-danger btn-sm">No-Show</a>
+                        </td>
+                    }
+                    else if (item.Status == BeanScene.Data.Status.Seated)
+                    {
+                        <td>
+                            <a class="btn btn-success btn-sm" asp-action="Complete" asp-route-id="@item.Id">Booking Complete</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                        </td>
+                    }
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

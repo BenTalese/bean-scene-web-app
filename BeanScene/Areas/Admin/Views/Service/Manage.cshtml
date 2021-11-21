@@ -1,0 +1,156 @@
+﻿@model IEnumerable<BeanScene.Data.Service>
+
+@{
+    ViewData["Title"] = "Manage Services";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>Manage Services</h1>
+    <p></p>
+    <p>
+        <a class="btn btn-primary btn-lg" asp-action="Create">Create New</a>   |   <a class="btn btn-primary btn-lg" asp-action="UpsertWeek">Generate 1 Week</a>   |   <a class="btn btn-primary btn-lg" asp-action="UpsertOne">Generate 1 Month</a>   |   <a class="btn btn-primary btn-lg" asp-action="UpsertThree">Generate 3 Months</a>
+
+        @*@using (Html.BeginForm())
+            {
+                <label for="selectoption">Filter Dates:</label>
+                <select id="SelectOption" name="SelectOption" onchange="asp-action="Manage"">
+                    <option value="Week">This Week</option>
+                    <option value="Next">Next Week</option>
+                    <option value="Month">This Month</option>
+                    <option value="">View All</option>
+                </select>
+            }*@
+
+    </p>
+    @*<p>
+            <a asp-action="Create">View This Week</a> | <a asp-action="Create">View Next Week</a> | <a asp-action="Create">View All Services</a>
+
+        </p>*@
+    <div class="table-section">
+        <div class="header-manager p-2">
+            <h4 class="ms-1 text-white">Services</h4>
+        </div>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.ActionLink("Day & Date", "Manage", new { sortOrder = ViewBag.DateSortParm })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Sitting Type", "Manage", new { sortOrder = ViewBag.TypeSortParm })
+                    </th>
+                    @*<th>
+                        Day &amp; Date
+                        </th>
+                        <th>
+                            Sitting Type
+                        </th>*@
+                    <th>
+                        Service State
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MaxPax)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CurrentPax)
+                    </th>
+                    <th>
+                        @Html.ActionLink("Vacancies", "Manage", new { sortOrder = ViewBag.VacancySortParm })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Pending", "Manage", new { sortOrder = ViewBag.PendingSortParm })
+                    </th>
+                    <th>Manage Services</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WordDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MealType)
+                        </td>
+                        @if (item.State == BeanScene.Data.ServiceState.Open)
+                        {
+                            <td class="text-success">
+                                Open
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">
+                                Closed
+                            </td>
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaxPax)
+                        </td>
+                        @if ((item.MaxPax - item.CurrentPax) < (item.MaxPax / 20))
+                        {
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.CurrentPax)
+                            </td>
+                        }
+                        else if ((item.MaxPax - item.CurrentPax) < (item.MaxPax / 10))
+                        {
+                            <td class="text-warning">
+                                @Html.DisplayFor(modelItem => item.CurrentPax)
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CurrentPax)
+                            </td>
+                        }
+                        @if (item.Vacancies < (item.MaxPax / 20))
+                        {
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.Vacancies)
+                            </td>
+                        }
+                        else if (item.Vacancies < (item.MaxPax / 10))
+                        {
+                            <td class="text-warning">
+                                @Html.DisplayFor(modelItem => item.Vacancies)
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Vacancies)
+                            </td>
+                        }
+                        @if ((item.Vacancies - item.UnassignedPax) < (item.MaxPax / 20))
+                        {
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.UnassignedPax)
+                            </td>
+                        }
+                        else if ((item.Vacancies - item.UnassignedPax) < (item.MaxPax / 10))
+                        {
+                            <td class="text-warning">
+                                @Html.DisplayFor(modelItem => item.UnassignedPax)
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UnassignedPax)
+                            </td>
+                        }
+                        <td>
+                            <a class="btn btn-success btn-sm" asp-action="Edit" asp-route-id="@item.Id">Update</a> |
+                            <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
